@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 06/10/2026 às 04:43
+-- Tempo de geração: 07/10/2026 às 06:35
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -46,9 +46,11 @@ CREATE TABLE `agendamento` (
 --
 
 INSERT INTO `agendamento` (`idagendamento`, `idcliente`, `idtatuador`, `dataagendamento`, `horaagendamento`, `descricaotatuagem`, `desenhoaprovado`, `valortatuagem`, `status`) VALUES
-(1, 1, 1, '2025-05-10', '14:00:00', 'Mandala no braço', NULL, 350.00, 'pendente'),
-(2, 2, 2, '2025-05-11', '10:00:00', 'Rosa aquarela no ombro', NULL, 200.00, 'confirmado'),
-(3, 1, 1, '2026-10-20', '15:30:00', 'Fênix nas costas', NULL, 450.00, 'pendente');
+(2, 2, 2, '2025-05-11', '10:00:00', 'Rosa aquarela no ombro', '2_rosa.png', 200.00, 'confirmado'),
+(3, 1, 1, '2026-10-22', '16:00:00', 'Fênix nas costas segurando um arco', NULL, 480.00, 'confirmado'),
+(4, 3, 4, '2025-08-01', '12:00:00', 'Mandala no braço', NULL, 100.00, 'pendente'),
+(5, 3, 2, '2025-09-10', '12:00:00', 'cachorro', NULL, 300.00, 'pendente'),
+(6, 2, 3, '2025-05-12', '17:00:00', 'Passaro', '6_passaro.png', 330.00, 'pendente');
 
 -- --------------------------------------------------------
 
@@ -94,7 +96,7 @@ INSERT INTO `estilo` (`idestilo`, `descricao`) VALUES
 (1, 'Blackwork'),
 (2, 'Aquarela'),
 (3, 'Realismo'),
-(4, 'Old School');
+(4, 'Minimalista');
 
 -- --------------------------------------------------------
 
@@ -139,7 +141,10 @@ CREATE TABLE `tatuador` (
 INSERT INTO `tatuador` (`idtatuador`, `nometatuador`, `cpf`, `email`, `telefone`, `datacontratacao`, `idsenioridade`) VALUES
 (1, 'Lucas Mendes', '11111111111', 'lucas@estudio.com', '11999990001', '2020-03-01', 3),
 (2, 'Carla Souza', '22222222222', 'carla@estudio.com', '11999990002', '2022-06-15', 2),
-(3, 'Pedro Lima', '33333333333', 'pedro@estudio.com', '11999990003', '2024-01-10', 1);
+(3, 'Pedro Lima', '33333333333', 'pedro@estudio.com', '11999990003', '2026-10-05', 1),
+(4, 'Camila', '44444444444', 'camila@estudio.com', '11999990004', '2026-10-05', 3),
+(5, 'Fernanda', '55555555555', 'fernanda@estudio.com', '11999990005', '2025-02-01', 2),
+(6, 'Celina', '66666666666', 'celina@estudio.com', '11999990006', '2026-10-07', 3);
 
 -- --------------------------------------------------------
 
@@ -158,10 +163,12 @@ CREATE TABLE `tatuador_estilo` (
 --
 
 INSERT INTO `tatuador_estilo` (`idtatuador`, `idestilo`, `dataestilo`) VALUES
-(1, 1, '2020-03-01'),
-(1, 3, '2021-05-10'),
+(1, 1, '2026-10-07'),
+(1, 3, '2026-10-07'),
 (2, 2, '2022-06-15'),
-(3, 4, '2024-01-10');
+(3, 4, '2024-01-10'),
+(6, 2, '2026-10-07'),
+(6, 3, '2026-10-07');
 
 --
 -- Índices para tabelas despejadas
@@ -217,7 +224,7 @@ ALTER TABLE `tatuador_estilo`
 -- AUTO_INCREMENT de tabela `agendamento`
 --
 ALTER TABLE `agendamento`
-  MODIFY `idagendamento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idagendamento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de tabela `cliente`
@@ -229,19 +236,19 @@ ALTER TABLE `cliente`
 -- AUTO_INCREMENT de tabela `estilo`
 --
 ALTER TABLE `estilo`
-  MODIFY `idestilo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idestilo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `senioridade`
 --
 ALTER TABLE `senioridade`
-  MODIFY `idsenioridade` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idsenioridade` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `tatuador`
 --
 ALTER TABLE `tatuador`
-  MODIFY `idtatuador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idtatuador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restrições para tabelas despejadas
