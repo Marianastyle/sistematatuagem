@@ -100,3 +100,13 @@ def atualizar_agendamento(id: int, agendamento: Agendamento):
     conn.commit()
     conn.close()
     return {"mensagem": "Agendamento atualizado com sucesso"}
+
+# DELETE /agendamentos/{id} — deleta um agendamento
+@router.delete("/agendamentos/{id}")
+def deletar_agendamento(id: int):
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM agendamento WHERE idagendamento = %s", (id,))
+    conn.commit()
+    conn.close()
+    return {"mensagem": "Agendamento deletado com sucesso"}
