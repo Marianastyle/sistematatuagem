@@ -30,7 +30,49 @@ async function fetchAutenticado(url, opcoes = {}) {
     headers
   });
 } 
+async function carregarEstilos() {
+  try {
+    const resposta = await fetchAutenticado(`${API}/estilos`);
 
+    if (!resposta.ok) {
+      throw new Error(`Erro HTTP ${resposta.status}`);
+    }
+
+    const estilos = await resposta.json();
+
+    if (!Array.isArray(estilos)) {
+      throw new Error('A API não retornou uma lista de estilos.');
+    }
+
+    const lista = document.getElementById('lista-estilos');
+    lista.innerHTML = '';
+
+    estilos.forEach(estilo => {
+      lista.innerHTML += `
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            name="estilos"
+            id="estilo-${estilo.idestilo}"
+            value="${estilo.idestilo}"
+          >
+          <label
+            class="form-check-label"
+            for="estilo-${estilo.idestilo}"
+          >
+            ${estilo.nome}
+          </label>
+        </div>
+      `;
+    });
+
+  } catch (erro) {
+    console.error('Erro ao carregar estilos:', erro);
+  }
+}
+
+carregarEstilos();
 // ─── Busca as senioridades na API e preenche o <select> ───
 async function carregarSenioridades() {
   try {
@@ -78,17 +120,33 @@ async function listarTatuadores() {
     corpo.innerHTML = '';
 
     tatuadores.forEach(t => {
-      corpo.innerHTML += `
-        <tr>
-          <td>${t.idtatuador}</td>
-          <td>${t.nometatuador}</td>
-          <td>${t.cpf}</td>
-          <td>${t.email ?? '-'}</td>
-          <td>${t.telefone ?? '-'}</td>
-          <td>${t.senioridade ?? '-'}</td>
-          <td>${t.estilos ?? '-'}</td>
-        </tr>`;
-    });
+  corpo.innerHTML += `
+    <tr>
+      <td>${t.idtatuador}</td>
+      <td>${t.nometatuador}</td>
+      <td>${t.cpf}</td>
+      <td>${t.email ?? '-'}</td>
+      <td>${t.telefone ?? '-'}</td>
+      <td>${t.senioridade ?? '-'}</td>
+      <td>${t.estilos ?? '-'}</td>
+      <td>
+        <button
+          type="button"
+          class="btn btn-warning btn-sm me-1"
+          onclick="editarTatuador(${t.idtatuador})">
+          Editar
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-danger btn-sm"
+          onclick="deletarTatuador(${t.idtatuador})">
+          Excluir
+        </button>
+      </td>
+    </tr>`;
+});
+   
 
   } catch (erro) {
     console.error('Erro ao listar tatuadores:', erro);
@@ -130,7 +188,23 @@ formTatuador.addEventListener('submit', async (e) => {
   limparFormulario()
   listarTatuadores()
 })
+async function editarTatuador(id) {
+  try {
+    const resposta = await fetchAutenticado(
+      `${API}/tatuadores/${id}`
+    );
 
+    if (!resposta.ok) {
+      throw new Error(`Erro HTTP ${resposta.status}`);
+    }
+
+    const tatuador = await resposta.json();
+    preencherFormularioEdicao(tatuador);
+  } catch (erro) {
+    console.error('Erro ao buscar tatuador:', erro);
+    alert('Não foi possível carregar os dados do tatuador.');
+  }
+}
 // ─── Abre os dados do tatuador no formulário para edição ───
 function preencherFormularioEdicao(tatuador) {
   document.getElementById('nometatuador').value = tatuador.nometatuador
