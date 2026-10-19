@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 07/10/2026 às 16:31
+-- Tempo de geração: 10/10/2026 às 21:57
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -193,7 +193,8 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`idusuario`, `nome`, `email`, `senha`, `tipo`, `idcliente`) VALUES
 (1, 'Pricila', 'pricila@silva.com', '$2b$12$6cNTcixOGxy7R5HmXYs/6.JtTPNDMJcATtVpoZmGRxW6xEtu23i.q', 'funcionario', NULL),
-(3, 'Leticia', 'leticia@silva.com', '$2b$12$2QZ/lnRPn/zEx/X4a1o1yuf48MySQy7YDw0ZcReA2F7H2vem/69oG', 'funcionario', NULL);
+(3, 'Leticia', 'leticia@silva.com', '$2b$12$2QZ/lnRPn/zEx/X4a1o1yuf48MySQy7YDw0ZcReA2F7H2vem/69oG', 'funcionario', NULL),
+(4, 'Administrador', 'admin@estudio.com', '$2b$12$OIWA3/hYrICMhzrSDHczo.nbEzn5VhEdsCtdGVwcRpojAqSpBVpsq', 'admin', NULL);
 
 --
 -- Índices para tabelas despejadas
@@ -287,7 +288,7 @@ ALTER TABLE `tatuador`
 -- AUTO_INCREMENT de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idusuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idusuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Restrições para tabelas despejadas
