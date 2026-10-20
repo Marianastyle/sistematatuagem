@@ -4,10 +4,54 @@
   <meta charset="UTF-8">
   <title>Dashboard — Estúdio de Tatuagem</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(
+      to bottom,
+      #ac20cc,
+      #ea8dff,
+      #f1b1ff
+    );
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+   h1{
+          text-align: center;
+          color: antiquewhite;
+        }
+        .navbar {
+          background-color: #8716a0;
+          border-radius: 10px;
+        }
+       a[href="clientes.html"],
+       a[href="tatuadores.html"],
+       a[href="agendamentos.html"],
+       a[href="senioridade.html"],
+       a[href="estilos.html"] {
+      background-color: #ac20cc;
+      border-color: #ac20cc;
+      color: antiquewhite;
+      transition: background-color 0.3s ease;
+}
+
+
+a[href="clientes.html"]:hover,
+a[href="tatuadores.html"]:hover,
+a[href="agendamentos.html"]:hover,
+a[href="senioridade.html"]:hover,
+a[href="estilos.html"]:hover {
+  background-color: #8716a0;
+  border-color: #8716a0;
+  color: antiquewhite;
+}
+
+  </style>
 </head>
 <body>
 
-  <nav class="navbar navbar-dark bg-dark mb-4">
+  <nav class="navbar navbar-dark mb-4">
     <div class="container">
       <span class="navbar-brand">Estúdio de Tatuagem</span>
       <button onclick="sair()" class="btn btn-outline-light btn-sm">Sair</button>
