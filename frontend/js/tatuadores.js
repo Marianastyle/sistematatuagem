@@ -239,22 +239,38 @@ try {
       );
     }
 
-  } else {
-    // 3. Cadastra um novo tatuador
-    resposta = await fetchAutenticado(`${API}/tatuadores`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(tatuador)
-    });
+ 
 
-    resultado = await resposta.json();
+} else {
+  // 3. Cadastra o tatuador
+  resposta = await fetchAutenticado(`${API}/tatuadores`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      tatuador: {
+        nometatuador: tatuador.nometatuador,
+        cpf: tatuador.cpf,
+        email: tatuador.email,
+        telefone: tatuador.telefone,
+        datacontratacao: tatuador.datacontratacao,
+        idsenioridade: tatuador.idsenioridade
+      },
+      dados_estilos: {
+        idestilos: estilosSelecionados
+      }
+    })
+  });
 
-    if (!resposta.ok) {
-      throw new Error(
-        `Erro ao cadastrar tatuador: ${JSON.stringify(resultado)}`
-      );
-    }
+  resultado = await resposta.json();
+
+  if (!resposta.ok) {
+    throw new Error(
+      `Erro ao cadastrar tatuador: ${JSON.stringify(resultado)}`
+    );
   }
+}
+
+
 
   alert('Operação realizada com sucesso!');
   limparFormulario();

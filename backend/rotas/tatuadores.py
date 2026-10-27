@@ -57,21 +57,57 @@ def buscar_tatuador(id: int):
         return {"erro": "Tatuador não encontrado"}
     return tatuador
 
-# POST /tatuadores — cadastra um novo tatuador
+
+# POST /tatuadores — cadastra um novo tatuador e seus estilos
 @router.post("")
-def criar_tatuador(tatuador: Tatuador):
+def criar_tatuador(
+    tatuador: Tatuador,
+    dados_estilos: EstilosDoTatuador = None
+):
     conn = conectar()
     cursor = conn.cursor()
-    cursor.execute(
-        """INSERT INTO tatuador (nometatuador, cpf, email, telefone, datacontratacao, idsenioridade)
-           VALUES (%s, %s, %s, %s, %s, %s)""",
-        (tatuador.nometatuador, tatuador.cpf, tatuador.email,
-         tatuador.telefone, tatuador.datacontratacao, tatuador.idsenioridade)
-    )
-    novo_id = cursor.lastrowid   # o ID que o MySQL gerou sozinho pro novo tatuador
-    conn.commit()
-    conn.close()
-    return {"mensagem": "Tatuador cadastrado com sucesso", "idtatuador": novo_id}
+
+    try:
+        cursor.execute(
+            """INSERT INTO tatuador
+               (nometatuador, cpf, email, telefone, datacontratacao, idsenioridade)
+               VALUES (%s, %s, %s, %s, %s, %s)""",
+            (
+                tatuador.nometatuador,
+                tatuador.cpf,
+                tatuador.email,
+                tatuador.telefone,
+                tatuador.datacontratacao,
+                tatuador.idsenioridade
+            )
+        )
+
+        novo_id = cursor.lastrowid
+
+        # Salva os estilos selecionados
+        if dados_estilos and dados_estilos.idestilos:
+            for idestilo in dados_estilos.idestilos:
+                cursor.execute(
+                    """INSERT INTO tatuador_estilo
+                       (idtatuador, idestilo, dataestilo)
+                       VALUES (%s, %s, CURDATE())""",
+                    (novo_id, idestilo)
+                )
+
+        conn.commit()
+        return {
+            "mensagem": "Tatuador cadastrado com sucesso",
+            "idtatuador": novo_id
+        }
+
+    except Exception:
+        conn.rollback()
+        raise
+
+    finally:
+        cursor.close()
+        conn.close()
+
 
 # PUT /tatuadores/{id} — atualiza um tatuador existente
 @router.put("/{id}")
