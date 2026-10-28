@@ -344,10 +344,27 @@ function preencherFormularioEdicao(tatuador) {
   botaoSubmit.classList.add('btn-success')
 }
 
-// ─── Exclui um tatuador ───
-async function deletarTatuador(id) {
-  if (!confirm('Tem certeza que deseja excluir este tatuador?')) return
 
-  await fetchAutenticado(`${API}/tatuadores/${id}`, { method: 'DELETE' })
-  listarTatuadores()
+async function deletarTatuador(id) {
+  if (!confirm('Tem certeza que deseja excluir este tatuador?')) return;
+
+  try {
+    const resposta = await fetchAutenticado(
+      `${API}/tatuadores/${id}`,
+      { method: 'DELETE' }
+    );
+
+    const resultado = await resposta.json();
+
+    if (!resposta.ok || resultado.erro) {
+      throw new Error(resultado.erro || `Erro HTTP ${resposta.status}`);
+    }
+
+    alert('Tatuador excluído com sucesso!');
+    await listarTatuadores();
+
+  } catch (erro) {
+    console.error('Erro ao excluir tatuador:', erro);
+    alert(erro.message || 'Não foi possível excluir o tatuador.');
+  }
 }

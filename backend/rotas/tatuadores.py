@@ -126,20 +126,43 @@ def atualizar_tatuador(id: int, tatuador: Tatuador):
     return {"mensagem": "Tatuador atualizado com sucesso"}
 
 # DELETE /tatuadores/{id} — deleta um tatuador
+
 @router.delete("/{id}")
 def deletar_tatuador(id: int):
     conn = conectar()
     cursor = conn.cursor()
 
     try:
-        cursor.execute("DELETE FROM tatuador WHERE idtatuador = %s", (id,))
+        # Remove os estilos associados ao tatuador
+        cursor.execute(
+            "DELETE FROM tatuador_estilo WHERE idtatuador = %s",
+            (id,)
+        )
+
+        # Tenta excluir o tatuador
+        cursor.execute(
+            "DELETE FROM tatuador WHERE idtatuador = %s",
+            (id,)
+        )
+
+        if cursor.rowcount == 0:
+            conn.rollback()
+            return {"erro": "Tatuador não encontrado"}
+
         conn.commit()
-        conn.close()
         return {"mensagem": "Tatuador deletado com sucesso"}
+
     except Exception as erro:
         conn.rollback()
+        print("Erro ao excluir tatuador:", erro)
+        return {
+            "erro": "Não foi possível excluir. O tatuador pode possuir agendamentos vinculados."
+        }
+
+    finally:
+        cursor.close()
         conn.close()
-        return {"erro": "Não foi possível excluir este tatuador. Verifique se ele possui agendamentos ou estilos cadastrados."}
+
 
     # GET /tatuadores/{id}/estilos — lista os estilos que esse tatuador já domina
 @router.get("/{id}/estilos")
