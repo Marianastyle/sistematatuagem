@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 20/10/2026 às 06:09
+-- Tempo de geração: 28/10/2026 às 01:34
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -53,7 +53,7 @@ INSERT INTO `agendamento` (`idagendamento`, `idcliente`, `idtatuador`, `dataagen
 (6, 2, 3, '2025-05-12', '17:00:00', 'Passaro', '6_passaro.png', 330.00, 'pendente'),
 (7, 3, 2, '2025-02-09', '13:00:00', 'Borboleta', '7_borboleta.png', 280.00, 'pendente'),
 (11, 1, 2, '2025-07-01', '10:00:00', NULL, NULL, 100.00, 'pendente'),
-(12, 1, 2, '2025-09-04', '14:50:00', 'Casa', NULL, 100.00, 'pendente');
+(14, 1, 2, '2026-01-01', '15:11:00', 'Flor', '14_flor.png', 100.00, 'pendente');
 
 -- --------------------------------------------------------
 
@@ -203,7 +203,8 @@ INSERT INTO `usuario` (`idusuario`, `nome`, `email`, `senha`, `tipo`, `idcliente
 (3, 'Leticia', 'leticia@silva.com', '$2b$12$2QZ/lnRPn/zEx/X4a1o1yuf48MySQy7YDw0ZcReA2F7H2vem/69oG', 'funcionario', NULL),
 (4, 'Administrador', 'admin@estudio.com', '$2b$12$AsGYOrpH7j.FLDdmYAwYW.XFsuWtsDXPGKr.3CckNGqYFwzWN38Pm', 'admin', NULL),
 (8, 'Vanessa', 'vanessa@silva.com', '$2b$12$Jzamp1cPZpfWOj3gF2s34uLbTd3T6N6P6tJ6U55O47NEiBqB.N.h2', 'funcionario', NULL),
-(9, 'Bianca', 'bianca@silva.com', '$2b$12$8ZIc9S14FJxIZcxcmyNF6enz0nAEd0Fgck3ItxLuZ5mRuVK89a0Me', 'funcionario', NULL);
+(9, 'Bianca', 'bianca@silva.com', '$2b$12$8ZIc9S14FJxIZcxcmyNF6enz0nAEd0Fgck3ItxLuZ5mRuVK89a0Me', 'funcionario', NULL),
+(10, 'Ana Beatriz', 'anabeatriz@silva.com', '$2b$12$iQKkvUZkLHW6BxRmycB7ouDEmfPUvmwND8cPSf0jiR676d2s0OAkG', 'funcionario', NULL);
 
 --
 -- Índices para tabelas despejadas
@@ -267,37 +268,37 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de tabela `agendamento`
 --
 ALTER TABLE `agendamento`
-  MODIFY `idagendamento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `idagendamento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de tabela `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `idcliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idcliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de tabela `estilo`
 --
 ALTER TABLE `estilo`
-  MODIFY `idestilo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idestilo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de tabela `senioridade`
 --
 ALTER TABLE `senioridade`
-  MODIFY `idsenioridade` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idsenioridade` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de tabela `tatuador`
 --
 ALTER TABLE `tatuador`
-  MODIFY `idtatuador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idtatuador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idusuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idusuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Restrições para tabelas despejadas
